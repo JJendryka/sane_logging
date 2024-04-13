@@ -8,10 +8,10 @@ import time
 import os
 from typing import Self, Union
 
-__LEVELS = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
-
 
 class SaneLogging:
+    __LEVELS = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+
     def __init__(self) -> None:
         self.__file_level: Optional[str] = None
         self.__terminal_level: Optional[str] = None
@@ -19,18 +19,19 @@ class SaneLogging:
         self.__clean_directory: bool = False
 
     def terminal(self, level: str = "INFO") -> Self:
-        assert level in __LEVELS
+        assert level in self.__LEVELS
         self.__terminal_level = level
         return self
 
     def file(self, directory: Union[str, os.PathLike], level: str = "DEBUG", clean: bool = False) -> Self:
-        assert level in __LEVELS
+        assert level in self.__LEVELS
         self.__file_directory = Path(directory)
         self.__file_level = level
         self.__clean_directory = clean
         return self
 
     def apply(self, logger: logging.Logger) -> None:
+        logger.setLevel("DEBUG")
         if self.__terminal_level is not None:
             terminal_handler = logging.StreamHandler(stream=sys.stdout)
             terminal_handler.setLevel(self.__terminal_level)
