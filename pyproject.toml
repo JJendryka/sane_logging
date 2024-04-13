@@ -1,0 +1,22 @@
+[project]
+name = "sane_logging"
+description = "Colored logging for terminal while also saving to file"
+version = "0.1.0"
+authors = [{name = "Jakub Jendryka"}]
+dependencies = ["colorama", "termcolor"]
+
+[project.optional-dependencies]
+dev = ["ruff", "black", "mypy"]
+
+[tool.ruff]
+select = ["E", "F", "N", "B", "A", "RET"]
+line-length = 120
+target-version = "py38"
+
+[tool.black]
+line-length = 120
+
+[tool.mypy]
+ignore_missing_imports = true
+disallow_untyped_defs = true
+check_untyped_defs = true
